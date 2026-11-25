@@ -1122,15 +1122,30 @@
       items.forEach(function (el) { el.classList.add('in'); });
     }
 
-    // inquiry form → 메일 앱(mailto)으로 문의 내용 전송
+    // inquiry form → 구글 폼(formResponse)으로 문의 내용 직접 접수
     var form = document.getElementById('inquiryForm');
     var status = document.getElementById('formStatus');
+    var submitBtn = form.querySelector('button[type="submit"]');
     var CONTACT_EMAIL = 'cnddmlek@gmail.com';
     var CONTACT_PHONE = '010-2227-8668';
     var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+    // 구글 폼(수메디팜_제휴문의) 응답 주소 — 폼을 새로 만들면 아래 주소와 entry 번호를 함께 바꿉니다.
+    var FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdFxtYFTWqotjhD4r4qm41SB-wiq0IAcD9eX66a8-6G-CHgtQ/formResponse';
+    var FORM_FIELDS = {
+      name: 'entry.91045294',      // 성함 (필수)
+      org: 'entry.1109385460',     // 소속
+      phone: 'entry.1867375051',   // 연락처 (필수)
+      email: 'entry.207668382',    // 이메일
+      type: 'entry.929659527',     // 문의 유형
+      message: 'entry.410627656'   // 문의 내용
+    };
+    var SUBMIT_LABEL = submitBtn ? submitBtn.innerHTML : '';
+    var sending = false;
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (sending) return;
 
       var name = document.getElementById('f-name');
       var org = document.getElementById('f-org');
@@ -1165,32 +1180,48 @@
         return;
       }
 
-      var inquiryType = type.value || '-';
-      var subject = '[수메디팜 제휴 문의] ' + name.value.trim() + (type.value ? ' · ' + type.value : '');
-      var bodyLines = [
-        '성함: ' + name.value.trim(),
-        '소속: ' + (org.value.trim() || '-'),
-        '연락처: ' + phone.value.trim(),
-        '이메일: ' + (email.value.trim() || '-'),
-        '문의 유형: ' + inquiryType,
-        '',
-        '문의 내용:',
-        (msg.value.trim() || '-'),
-        '',
-        '— 수메디팜 홈페이지(제휴 문의 폼)에서 보냈습니다.'
-      ];
+      var formData = new FormData();
+      var values = {
+        name: name.value.trim(),
+        org: org.value.trim(),
+        phone: phone.value.trim(),
+        email: email.value.trim(),
+        type: type.value,
+        message: msg.value.trim()
+      };
+      Object.keys(FORM_FIELDS).forEach(function (key) {
+        if (values[key]) formData.append(FORM_FIELDS[key], values[key]);
+      });
 
-      var mailto = 'mailto:' + CONTACT_EMAIL +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(bodyLines.join('\r\n'));
-
+      sending = true;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '전송 중...';
+      }
       status.className = 'form-status show';
-      status.innerHTML = '<strong>작성하신 내용으로 메일 앱을 엽니다.</strong>' +
-        '메일 앱이 열리면 그대로 보내 주세요. 메일 앱이 열리지 않으면 ' +
-        '<a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> 또는 ' +
-        '<a href="tel:' + CONTACT_PHONE + '">' + CONTACT_PHONE + '</a>로 바로 연락해 주세요.';
+      status.textContent = '문의 내용을 접수하고 있습니다...';
 
-      window.location.href = mailto;
+      fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData })
+        .then(function () {
+          status.className = 'form-status show';
+          status.innerHTML = '<strong>제휴 문의가 정상적으로 접수되었습니다.</strong>' +
+            '확인 후 빠르게 연락드리겠습니다.';
+          form.reset();
+        })
+        .catch(function () {
+          status.className = 'form-status show is-error';
+          status.innerHTML = '<strong>전송이 되지 않았습니다.</strong>' +
+            '네트워크 상태를 확인한 뒤 다시 시도하시거나 ' +
+            '<a href="tel:' + CONTACT_PHONE + '">' + CONTACT_PHONE + '</a> 또는 ' +
+            '<a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a>으로 바로 연락해 주세요.';
+        })
+        .then(function () {
+          sending = false;
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = SUBMIT_LABEL;
+          }
+        });
     });
 
     form.addEventListener('input', function (e) {
