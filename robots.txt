@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cnddmlek-hash.github.io/soomedipharm/sitemap.xml
