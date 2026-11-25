@@ -226,6 +226,41 @@
   .hero-fact svg{flex:none;color:var(--teal)}
   .hero-fact b{color:#fff;font-weight:600}
 
+  /* ---------- rep strip (명함 QR 담당자) ---------- */
+  .rep-strip{
+    display:inline-flex;align-items:center;flex-wrap:wrap;gap:9px 12px;
+    max-width:100%;margin:0 0 clamp(26px,3.2vw,36px);
+    padding:9px 16px 9px 10px;border-radius:999px;
+    background:linear-gradient(100deg,rgba(143,240,212,.15),rgba(46,196,182,.06) 52%,rgba(255,255,255,.03));
+    border:1px solid rgba(143,240,212,.32);
+    box-shadow:0 22px 46px -32px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.07);
+    font-size:13.5px;color:rgba(232,242,250,.72);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  }
+  .rep-strip[hidden]{display:none}
+  .rep-ico{
+    width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;
+    background:radial-gradient(circle at 34% 28%,rgba(143,240,212,.95),var(--emerald) 58%,#0f8f68);
+    color:#04241d;box-shadow:0 8px 20px -12px rgba(34,197,139,.95);
+  }
+  .rep-kicker{font-size:10.5px;font-weight:700;letter-spacing:.16em;color:var(--mint)}
+  .rep-div{width:1px;height:14px;flex:none;background:rgba(255,255,255,.18)}
+  .rep-name{color:#fff;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+  .rep-name em{font-style:normal;font-weight:500;color:rgba(232,242,250,.72);margin-left:1px}
+  .rep-tel{
+    display:inline-flex;align-items:center;gap:6px;padding:5px 12px 5px 10px;border-radius:999px;
+    background:rgba(143,240,212,.13);border:1px solid rgba(143,240,212,.36);
+    color:var(--mint);font-weight:600;font-size:12.8px;letter-spacing:.01em;
+    font-variant-numeric:tabular-nums;
+    transition:background .25s,color .25s,border-color .25s,transform .25s var(--ease);
+  }
+  .rep-tel svg{flex:none}
+  .rep-tel:hover,.rep-tel:focus-visible{background:rgba(143,240,212,.26);border-color:rgba(143,240,212,.7);color:#fff;transform:translateY(-1px)}
+  .rep-tel[hidden]{display:none}
+  .rep-note{font-size:11.5px;color:rgba(232,242,250,.42);letter-spacing:.01em}
+  .cred-row .rep-link{color:var(--mint);border-bottom:1px solid rgba(143,240,212,.4);transition:color .2s,border-color .2s}
+  .cred-row .rep-link:hover,.cred-row .rep-link:focus-visible{color:#fff;border-bottom-color:#fff}
+
   /* credential card */
   .cred{position:relative}
   .cred-orbit{
@@ -260,6 +295,7 @@
   .cred-row dt{color:rgba(232,242,250,.55);flex:none;letter-spacing:.02em}
   .cred-row dd{margin:0;text-align:right;color:#fff;font-weight:500}
   .cred-row dd em{font-style:normal;color:var(--mint)}
+  .cred-row[hidden]{display:none}
   .cred-foot{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:11px;letter-spacing:.18em;color:rgba(232,242,250,.45)}
   .cred-foot .dots{display:flex;gap:5px;margin-left:auto}
   .cred-foot .dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25)}
@@ -499,6 +535,22 @@
     transition:color .2s,border-color .2s;
   }
   .contact-side a:hover,.contact-side a:focus-visible{color:#0c8a7f;border-bottom-color:#0c8a7f}
+  .contact-side .rep-line{
+    display:flex;gap:10px;align-items:center;margin:0 0 4px;padding:10px 13px;border-radius:12px;
+    background:linear-gradient(100deg,#eefbf7,#f4f9fc);border:1px solid #cdeee4;
+    font-size:12.8px;color:var(--ink-soft);
+  }
+  .contact-side .rep-line[hidden]{display:none}
+  .contact-side .rep-line .rep-tag{
+    flex:none;font-size:10px;font-weight:700;letter-spacing:.1em;color:#0b7f6c;
+    padding:3px 8px;border-radius:999px;background:#dcf6ee;border:1px solid #bce8dc;
+  }
+  .contact-side .rep-line b{color:var(--ink)}
+  .contact-card .rep-form-note{
+    display:flex;align-items:center;gap:7px;margin-top:12px;padding:8px 12px;border-radius:10px;
+    background:#eefaf6;border:1px solid #d5efe7;font-size:12px;line-height:1.6;color:#0b7f6c;font-weight:600;
+  }
+  .contact-card .rep-form-note[hidden]{display:none}
   .form-status a{color:#0a6558;font-weight:600;text-decoration:underline;text-underline-offset:2px}
   .form-status a:hover{color:#064a40}
 
@@ -572,6 +624,9 @@
     .hero h1{font-size:clamp(29px,7.6vw,40px)}
     .hero-facts{gap:10px 20px;margin-top:34px}
     .hero-fact{font-size:12px}
+    .rep-strip{border-radius:16px;gap:8px 10px;padding:10px 13px;margin-bottom:26px}
+    .rep-note,.rep-div{display:none}
+    .rep-name{white-space:normal}
     .cred-card{padding:24px 22px 22px}
     .float-tag{left:8px;right:auto;bottom:-20px;font-size:11.5px;padding:9px 13px}
     .svc-grid,.proc-grid,.form-grid{grid-template-columns:1fr}
@@ -631,6 +686,22 @@
   <!-- ================= HERO ================= -->
   <section class="hero">
     <div class="wrap">
+
+      <!-- 명함 QR 담당자 안내 (파라미터가 있을 때만 노출) -->
+      <aside class="rep-strip" id="repStrip" aria-label="담당자 안내" hidden>
+        <span class="rep-ico" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6.8" r="3.1" stroke="currentColor" stroke-width="1.6"/><path d="M4.3 16.2c.6-2.8 2.9-4.6 5.7-4.6s5.1 1.8 5.7 4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </span>
+        <span class="rep-kicker">담당자 안내</span>
+        <span class="rep-div" aria-hidden="true"></span>
+        <span class="rep-name"><span id="repName">정아름</span> <em id="repTitle">이사</em></span>
+        <a class="rep-tel" id="repTel" href="tel:010-6844-0478">
+          <svg width="13" height="13" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.2 3h2.6l1.4 3.4-1.8 1.3a10 10 0 0 0 4.9 4.9l1.3-1.8L16 12.2v2.6a2 2 0 0 1-2.2 2A12.6 12.6 0 0 1 2.2 5.2 2 2 0 0 1 4.2 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <span id="repTelText">010-6844-0478</span>
+        </a>
+        <span class="rep-note">명함 QR로 연결되었습니다</span>
+      </aside>
+
       <div class="hero-grid">
         <div class="hero-copy">
           <span class="eyebrow">Pharmaceutical CSO · Busan</span>
@@ -689,6 +760,7 @@
               <div class="cred-row"><dt>신고</dt><dd><em>완료</em> · 제 경자청 2026-8 호</dd></div>
               <div class="cred-row"><dt>활동 지역</dt><dd>부산·경남 거점 · 전국 파트너십</dd></div>
               <div class="cred-row"><dt>상담</dt><dd>방문 미팅 · 비대면 모두 가능</dd></div>
+              <div class="cred-row" id="credRepRow" hidden><dt>담당</dt><dd id="credRepValue"></dd></div>
             </dl>
 
             <div class="cred-foot">
@@ -964,6 +1036,7 @@
             <span class="label">Partnership Inquiry</span>
             <h3>제휴 문의</h3>
             <p>위탁을 검토 중인 품목이나 활동 지역을 남겨 주시면, 확인 후 회신드립니다.</p>
+            <p class="rep-form-note" id="repFormNote" hidden></p>
 
             <form id="inquiryForm" novalidate>
               <div class="form-grid">
@@ -1015,9 +1088,13 @@
             </form>
 
             <div class="contact-side">
+              <div class="rep-line" id="contactRep" hidden>
+                <span class="rep-tag">담당자</span>
+                <span><b id="contactRepWho">정아름 이사</b><span id="contactRepDirect"> 직통 </span><a id="contactRepTel" href="tel:010-6844-0478">010-6844-0478</a></span>
+              </div>
               <div>
                 <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.2 3h2.6l1.4 3.4-1.8 1.3a10 10 0 0 0 4.9 4.9l1.3-1.8L16 12.2v2.6a2 2 0 0 1-2.2 2A12.6 12.6 0 0 1 2.2 5.2 2 2 0 0 1 4.2 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-                <span>문의 전화 <a href="tel:010-2227-8668">010-2227-8668</a></span>
+                <span><span id="mainPhoneLabel">문의 전화</span> <a href="tel:010-2227-8668">010-2227-8668</a></span>
               </div>
               <div>
                 <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m3.5 6 6.5 4.6L16.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1130,6 +1207,117 @@
     var CONTACT_PHONE = '010-2227-8668';
     var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+    // ---- 명함 QR 담당자 인식 (?rep=jeong 또는 ?name=&title=&tel=) ----
+    var REP_PRESETS = {
+      jeong: { name: '정아름', title: '이사', phone: '010-6844-0478', email: 'cnddmlek@gmail.com' }
+    };
+
+    function repClean(value, max) {
+      if (value === null || value === undefined) return '';
+      return String(value).replace(/[\u0000-\u001f\u007f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max);
+    }
+    function repDigits(value) {
+      return String(value || '').replace(/[^0-9+]/g, '').replace(/^\+82/, '0');
+    }
+    function repFormatTel(value) {
+      var d = repDigits(value);
+      if (/^01\d{9}$/.test(d)) return d.slice(0, 3) + '-' + d.slice(3, 7) + '-' + d.slice(7);
+      if (/^02\d{8}$/.test(d)) return '02-' + d.slice(2, 6) + '-' + d.slice(6);
+      if (/^02\d{7}$/.test(d)) return '02-' + d.slice(2, 5) + '-' + d.slice(5);
+      if (/^0\d{9}$/.test(d)) return d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6);
+      return String(value || '').trim();
+    }
+
+    var rep = (function () {
+      var params;
+      try { params = new URLSearchParams(window.location.search); }
+      catch (err) { return null; }
+
+      var key = repClean(params.get('rep'), 40);
+      var found = null;
+      if (key) {
+        var preset = REP_PRESETS[key.toLowerCase().replace(/[\s_-]+/g, '')];
+        found = preset
+          ? { name: preset.name, title: preset.title, phone: preset.phone, email: preset.email }
+          : { name: key, title: '', phone: '', email: '' };
+      }
+
+      var pName = repClean(params.get('name'), 24);
+      var pTitle = repClean(params.get('title'), 16);
+      var pTel = repClean(params.get('tel') || params.get('phone'), 24);
+      var pEmail = repClean(params.get('email'), 60);
+      if (pName || pTitle || pTel || pEmail) {
+        found = found || { name: '', title: '', phone: '', email: '' };
+        if (pName) found.name = pName;
+        if (pTitle) found.title = pTitle;
+        if (pTel) found.phone = pTel;
+        if (pEmail) found.email = pEmail;
+      }
+
+      if (!found || (!found.name && !found.phone)) return null;
+      if (!found.name) found.name = '담당자';
+      found.who = found.name + (found.title ? ' ' + found.title : '');
+      found.telText = found.phone ? repFormatTel(found.phone) : '';
+      found.telHref = found.phone ? 'tel:' + repDigits(found.phone) : '';
+      return found;
+    })();
+
+    // 유입 명함 태그 — 담당자가 지정된 경우에만 문의 내용 앞에 붙입니다.
+    function repTag() {
+      if (!rep) return '';
+      return '[유입 명함: ' + rep.who + (rep.telText ? ' (' + rep.telText + ')' : '') + ']';
+    }
+
+    if (rep) {
+      var strip = document.getElementById('repStrip');
+      document.getElementById('repName').textContent = rep.name;
+      var stripTitle = document.getElementById('repTitle');
+      if (rep.title) stripTitle.textContent = rep.title;
+      else stripTitle.hidden = true;
+
+      var stripTel = document.getElementById('repTel');
+      if (rep.telText) {
+        stripTel.href = rep.telHref;
+        stripTel.setAttribute('aria-label', rep.who + ' ' + rep.telText + '로 전화');
+        document.getElementById('repTelText').textContent = rep.telText;
+      } else {
+        stripTel.hidden = true;
+      }
+      strip.hidden = false;
+
+      var credRow = document.getElementById('credRepRow');
+      var credValue = document.getElementById('credRepValue');
+      if (rep.telText) {
+        var credLink = document.createElement('a');
+        credLink.className = 'rep-link';
+        credLink.href = rep.telHref;
+        credLink.textContent = rep.who + ' · ' + rep.telText;
+        credValue.appendChild(credLink);
+      } else {
+        credValue.textContent = rep.who;
+      }
+      credRow.hidden = false;
+
+      document.getElementById('contactRepWho').textContent = rep.who;
+      var contactTel = document.getElementById('contactRepTel');
+      if (rep.telText) {
+        contactTel.href = rep.telHref;
+        contactTel.textContent = rep.telText;
+        document.getElementById('mainPhoneLabel').textContent = '대표 문의';
+      } else {
+        contactTel.hidden = true;
+        document.getElementById('contactRepDirect').hidden = true;
+      }
+      document.getElementById('contactRep').hidden = false;
+
+      var formNote = document.getElementById('repFormNote');
+      formNote.textContent = rep.who + ' 명함의 QR로 연결된 페이지입니다.';
+      formNote.hidden = false;
+    }
+
+    var FALLBACK_TEL_TEXT = rep && rep.telText ? rep.telText : CONTACT_PHONE;
+    var FALLBACK_TEL_HREF = rep && rep.telText ? rep.telHref : 'tel:' + CONTACT_PHONE;
+
     // 구글 폼(수메디팜_제휴문의) 응답 주소 — 폼을 새로 만들면 아래 주소와 entry 번호를 함께 바꿉니다.
     var FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdFxtYFTWqotjhD4r4qm41SB-wiq0IAcD9eX66a8-6G-CHgtQ/formResponse';
     var FORM_FIELDS = {
@@ -1189,6 +1377,8 @@
         type: type.value,
         message: msg.value.trim()
       };
+      var tag = repTag();
+      if (tag) values.message = values.message ? tag + '\n' + values.message : tag;
       Object.keys(FORM_FIELDS).forEach(function (key) {
         if (values[key]) formData.append(FORM_FIELDS[key], values[key]);
       });
@@ -1212,7 +1402,7 @@
           status.className = 'form-status show is-error';
           status.innerHTML = '<strong>전송이 되지 않았습니다.</strong>' +
             '네트워크 상태를 확인한 뒤 다시 시도하시거나 ' +
-            '<a href="tel:' + CONTACT_PHONE + '">' + CONTACT_PHONE + '</a> 또는 ' +
+            '<a href="' + FALLBACK_TEL_HREF + '">' + FALLBACK_TEL_TEXT + '</a> 또는 ' +
             '<a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a>으로 바로 연락해 주세요.';
         })
         .then(function () {
