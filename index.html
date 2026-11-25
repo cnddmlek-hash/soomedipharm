@@ -1179,7 +1179,7 @@
 
       <div class="board reveal" id="briefingBoard">
         <div class="board-bar">
-          <div class="board-tabs" id="noticeTabs" role="tablist" aria-label="공지 분류"></div>
+          <div class="board-tabs" id="noticeTabs" role="group" aria-label="공지 분류"></div>
           <div class="board-search">
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="5.6" stroke="currentColor" stroke-width="1.6"/><path d="m13.2 13.2 3.3 3.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             <input id="noticeSearch" type="search" inputmode="search" placeholder="제목·키워드 검색 (예: 검체, 수가)" aria-label="공지 검색" autocomplete="off">
@@ -1844,7 +1844,7 @@
         var html = '';
         NOTICE_CATEGORIES.forEach(function (cat) {
           var n = NOTICES.filter(function (item) { return inCat(item, cat); }).length;
-          html += '<button type="button" class="tab" data-cat="' + esc(cat) + '" role="tab" aria-selected="false">' +
+          html += '<button type="button" class="tab" data-cat="' + esc(cat) + '" aria-pressed="false">' +
             esc(cat) + ' <span class="tab-count">' + n + '</span></button>';
         });
         tabsEl.innerHTML = html;
@@ -1854,7 +1854,7 @@
         Array.prototype.forEach.call(tabsEl.querySelectorAll('.tab'), function (btn) {
           var on = btn.getAttribute('data-cat') === activeCat;
           btn.classList.toggle('is-active', on);
-          btn.setAttribute('aria-selected', on ? 'true' : 'false');
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         });
       }
 
