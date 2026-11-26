@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>모바일 미리보기 (임시)</title>
+<style>
+  body { margin:0; padding:20px; font-family: -apple-system, "Malgun Gothic", sans-serif; background:#0f172a; color:#e2e8f0; }
+  .row { display:flex; gap:28px; align-items:flex-start; }
+  .frame-box { background:#1e293b; padding:10px; border-radius:14px; }
+  .cap { font-size:12px; margin:0 0 8px 2px; color:#94a3b8; }
+  iframe { border:0; border-radius:10px; background:#fff; display:block; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="frame-box">
+    <p class="cap">390 × 844 (일반 폰)</p>
+    <iframe id="f1" src="./index.html" width="390" height="844"></iframe>
+  </div>
+  <div class="frame-box">
+    <p class="cap">360 × 780 (작은 폰)</p>
+    <iframe id="f2" src="./index.html" width="360" height="780"></iframe>
+  </div>
+</div>
+<script>
+  try { localStorage.setItem('crm_server_url', 'https://script.google.com/macros/s/AKfyPREVIEWONLY0000000000000000/exec'); } catch (e) {}
+
+  var clients = [
+    {_rowIndex:2, 거래처코드:'C0101', 거래처명:'가나내과의원', 유통구분:'의원', 사업유형:'내과', 진료과:'내과', 담당자:'최충의', 연락처:'051-000-0001', 이메일:'a@example.com', 주소:'부산 동래구', 회전일경고기준:100, 사용여부:'Y', 메모:''},
+    {_rowIndex:3, 거래처코드:'C0102', 거래처명:'다라내과의원', 유통구분:'의원', 사업유형:'내과', 진료과:'내과', 담당자:'최충의', 연락처:'051-000-0002', 이메일:'b@example.com', 주소:'부산 서구', 회전일경고기준:90, 사용여부:'Y', 메모:''},
+    {_rowIndex:4, 거래처코드:'C0103', 거래처명:'마바이비인후과의원', 유통구분:'의원', 사업유형:'이비인후과', 진료과:'이비인후과', 담당자:'최충의', 연락처:'051-000-0003', 이메일:'', 주소:'부산 수영구', 회전일경고기준:100, 사용여부:'Y', 메모:''},
+    {_rowIndex:5, 거래처코드:'C0104', 거래처명:'사아소아과의원', 유통구분:'의원', 사업유형:'소아청소년과', 진료과:'소아청소년과', 담당자:'최충의', 연락처:'051-000-0004', 이메일:'', 주소:'부산 연제구', 회전일경고기준:100, 사용여부:'Y', 메모:''}
+  ];
+  var products = [
+    {_rowIndex:2, 보험코드:'642100120', 제품명:'아토르바정 10mg', 규격:'30T', 기준단가:1200, 수수료율:35},
+    {_rowIndex:3, 보험코드:'642100320', 제품명:'아다셀주 2mL', 규격:'1관', 기준단가:88000, 수수료율:12}
+  ];
+  var rows = [
+    {거래처코드:'C0101', 거래처명:'가나내과의원', 유통구분:'의원', 담당자:'최충의', 연락처:'051-000-0001', 이메일:'a@example.com', 회전일경고기준:100, 전월말잔고:1820000, 당월매출:640000, 당월수금:400000, 최근3개월매출:2100000, 최근90일매출:2200000, 현재잔고:2060000, 회전일:97, 경고여부:false},
+    {거래처코드:'C0102', 거래처명:'다라내과의원', 유통구분:'의원', 담당자:'최충의', 연락처:'051-000-0002', 이메일:'b@example.com', 회전일경고기준:90, 전월말잔고:2450000, 당월매출:0, 당월수금:0, 최근3개월매출:1800000, 최근90일매출:1900000, 현재잔고:2450000, 회전일:999, 경고여부:true},
+    {거래처코드:'C0103', 거래처명:'마바이비인후과의원', 유통구분:'의원', 담당자:'최충의', 연락처:'051-000-0003', 이메일:'', 회전일경고기준:100, 전월말잔고:1240000, 당월매출:180000, 당월수금:0, 최근3개월매출:1150000, 최근90일매출:1200000, 현재잔고:1420000, 회전일:132, 경고여부:true},
+    {거래처코드:'C0104', 거래처명:'사아소아과의원', 유통구분:'의원', 담당자:'최충의', 연락처:'051-000-0004', 이메일:'', 회전일경고기준:100, 전월말잔고:560000, 당월매출:210000, 당월수금:300000, 최근3개월매출:900000, 최근90일매출:880000, 현재잔고:470000, 회전일:67, 경고여부:false}
+  ];
+  var bootstrap = {user:{아이디:'choi', 담당자명:'최충의', 권한:'MASTER'}, isMaster:true, appVersion:'v1.1', requiresPin:false, hiraConfigured:false, userEmail:'', settings:{'회사명':'수메디팜','담당자명':'최충의','담당자연락처':'010-0000-0000','부가세율':'10','회전일공식':'MONTHLY_30','회전일기준일수':'30','기본경고회전일':'100'}, clients:clients, products:products, today:'2026-11-26', currentMonth:'2026-11'};
+  var txs = [
+    {_rowIndex:2, 거래ID:'T1', 날짜:'2026-11-24', 구분:'매출', 거래처코드:'C0102', 거래처명:'다라내과의원', 보험코드:'642100320', 품목명:'아다셀주 2mL', 수량:10, 단가:88000, 공급가액:880000, 부가세:88000, 합계금액:968000, 수금유형:'', 비고:''},
+    {_rowIndex:3, 거래ID:'T2', 날짜:'2026-11-23', 구분:'매출', 거래처코드:'C0101', 거래처명:'가나내과의원', 보험코드:'642100120', 품목명:'아토르바정 10mg', 수량:20, 단가:1200, 공급가액:24000, 부가세:2400, 합계금액:26400, 수금유형:'', 비고:''}
+  ];
+
+  function mockRun(fn){
+    var r;
+    if (fn === 'login') r = {success:true, token:'t', user:bootstrap.user, appVersion:'v1.1', requiresPin:false, bootstrap:bootstrap};
+    else if (fn === 'getBootstrapData') r = bootstrap;
+    else if (fn === 'getTurnoverDashboard') r = {targetMonth:'2026-11', formula:'MONTHLY_30', baseDays:30, defaultWarnDays:100, summary:{totalClients:rows.length, warnCount:2, sumPrev:6050000, sumSales:1030000, sumColl:700000, sumBal:6400000}, rows:rows};
+    else if (fn === 'getRecentTransactions') r = txs;
+    else if (fn === 'getProducts') r = products;
+    else if (fn === 'getClients') r = clients;
+    else if (fn === 'getRecentOrdersByClient') r = {clientCode:'C0101', clientName:'가나내과의원', totalCount:1, orders:[txs[1]]};
+    else if (fn === 'getMailLogs') r = [];
+    else if (fn === 'getHiraKeyStatus') r = {configured:false};
+    else r = {success:true};
+    return Promise.resolve(r);
+  }
+
+  function boot(id){
+    var f = document.getElementById(id);
+    var w = f.contentWindow, d = f.contentDocument;
+    w.runServer = mockRun;
+    var idEl = d.getElementById('login-id'), pwEl = d.getElementById('login-pw');
+    if (!idEl) return;
+    idEl.value = 'choi'; pwEl.value = '1234';
+    w.submitLogin();
+  }
+  ['f1','f2'].forEach(function(id){
+    var f = document.getElementById(id);
+    f.addEventListener('load', function(){ setTimeout(function(){ boot(id); }, 300); });
+  });
+</script>
+</body>
+</html>
